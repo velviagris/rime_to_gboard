@@ -22,10 +22,8 @@ def read_file(rime_userdb_path: str):
 # 判断输入方案
 def get_scheme(userdb_data: list):
     scheme_type = ""
-    if "luna_pinyin" in userdb_data[1]:
-        scheme_type = "luna_pinyin"
-    elif "wubi86" in userdb_data[1]:
-        scheme_type = "wubi86"
+    if "pinyin" in userdb_data[1]:
+        scheme_type = "pinyin"
     elif "flypy" in userdb_data[1]:
         scheme_type = "flypy"
     return scheme_type
@@ -51,21 +49,11 @@ def simp_to_trans(input_data: list):
 def find_words(scheme_type: str, input_data: list):
     result = []
 
-    if scheme_type == "luna_pinyin":
+    if scheme_type == "pinyin":
         pattern = re.compile(r'(.*?)\t(.*?)\t')
         for line in tqdm(input_data, desc="正则匹配短语"):
             res = pattern.findall(line)
             result.append(res)
-    elif scheme_type == "double_pinyin_flypy":
-        pattern = re.compile(r'(.*?)\t(.*?)\t')
-        for line in tqdm(input_data, desc="正则匹配短语"):
-            res = pattern.findall(line)
-            new_res = ()
-            if len(res) == 1:
-                res_list = list(res)
-                new_key = res_list[0][0].replace('\x7fenc\x1f', '')
-                new_res = [(new_key, res_list[0][1])]
-            result.append(new_res)
     elif scheme_type == "flypy":
         pattern = re.compile(r'(.*?)\t(.*?)\t')
         for line in tqdm(input_data, desc="正则匹配短语"):
@@ -87,7 +75,7 @@ def generate_gboard_format_data(output_scheme_type: str, words_list: list):
     new_words_list = []
     for word in tqdm(words_list, desc="创建转换格式短语列表"):
         if word != []:
-            if output_scheme_type == "2":
+            if output_scheme_type == "1":
                 new_word = '{}\t{}\tzh-CN\n'.format(pinyin_to_flypy(word[0][0]), word[0][1])
             else:
                 new_word = '{}\t{}\tzh-CN\n'.format(word[0][0], word[0][1])
@@ -120,12 +108,10 @@ def main():
     if scheme_type != "":
         scheme_result = input("识别为 {} 词库, 输入 0 -- 正确, 1 -- 错误 以继续: ".format(scheme_type))
     if scheme_type == "" or scheme_result == 1:
-        input_scheme_type = input("输入 Rime userdb.txt 方案类型 (0 -- pinyin, 1 -- wubi, 2 -- flypy): ")
+        input_scheme_type = input("输入 Rime userdb.txt 方案类型 (0 -- pinyin, 1 -- flypy): ")
         if input_scheme_type == '0':
-            scheme_type = "luna_pinyin"
+            scheme_type = "pinyin"
         elif input_scheme_type == '1':
-            scheme_type = "wubi86"
-        elif input_scheme_type == '2':
             scheme_type = "flypy"
 
 
@@ -136,7 +122,7 @@ def main():
             userdb_type = print("参数格式错误, 重新输入")
             continue
         gboard_type = input("输入 GboardDictionary.zip 简繁类型 (0 -- 简体, 1 -- 繁体): ")
-        output_scheme_type = input("输入 Gboard 词库方案类型 (0 -- pinyin, 1 -- wubi, 2 -- flypy): ")
+        output_scheme_type = input("输入 Gboard 词库方案类型 (0 -- pinyin, 1 -- flypy): ")
         
         if gboard_type not in input_format:
             gboard_type = print("参数格式错误, 重新输入")
