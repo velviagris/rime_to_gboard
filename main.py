@@ -56,7 +56,7 @@ def find_words(scheme_type: str, input_data: list):
         for line in tqdm(input_data, desc="正则匹配短语"):
             res = pattern.findall(line)
             result.append(res)
-    elif scheme_type == "wubi86":
+    elif scheme_type == "double_pinyin_flypy":
         pattern = re.compile(r'(.*?)\t(.*?)\t')
         for line in tqdm(input_data, desc="正则匹配短语"):
             res = pattern.findall(line)
@@ -65,8 +65,6 @@ def find_words(scheme_type: str, input_data: list):
                 res_list = list(res)
                 new_key = res_list[0][0].replace('\x7fenc\x1f', '')
                 new_res = [(new_key, res_list[0][1])]
-            else:
-                new_res = res
             result.append(new_res)
     elif scheme_type == "flypy":
         pattern = re.compile(r'(.*?)\t(.*?)\t')

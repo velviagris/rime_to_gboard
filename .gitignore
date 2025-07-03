@@ -5,6 +5,7 @@ venv/
 dist/
 build/
 *.spec
+.vscode/launch.json
 
 *.json
 *.exe
