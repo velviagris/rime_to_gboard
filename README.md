@@ -14,7 +14,7 @@
 ## 适用输入方案
 
 - 全拼
-- 五笔 (测试)
+- 小鹤双拼, [参考链接](https://github.com/bcaso/pinyin_to_double_pinyin)
 
 ## 脚本依赖
 
