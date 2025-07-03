@@ -5,3 +5,7 @@ venv/
 dist/
 build/
 *.spec
+
+*.json
+*.exe
+*.pyc
