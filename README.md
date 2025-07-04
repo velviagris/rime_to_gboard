@@ -16,6 +16,8 @@
 - 全拼
 - 小鹤双拼, [参考链接](https://github.com/bcaso/pinyin_to_double_pinyin)
 
+> Rime 小鹤双拼模式下的 `userdb.txt` 中编码仍为全拼, 脚本原理是将全拼转为双拼后写入 `PersonalDictionary.zip`.
+
 ## 脚本依赖
 
 - Python 3.8-3.10
