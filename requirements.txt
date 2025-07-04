@@ -1,10 +1,11 @@
 altgraph==0.17.3
 colorama==0.4.6
 hanzidentifier==1.2.0
-OpenCC==1.1.1
+OpenCC==1.1.7
+packaging==23.2
 pefile==2023.2.7
-pyinstaller==5.13.0
+pyinstaller==6.3.0
 pyinstaller-hooks-contrib==2023.6
 pywin32-ctypes==0.2.2
-tqdm==4.64.1
+tqdm==4.66.1
 zhon==2.0.2
